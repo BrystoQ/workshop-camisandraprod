@@ -1,0 +1,25 @@
+.start {
+  h1 {
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-family: Poppins, sans-serif;
+  }
+
+  .game {
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 13px 4px rgba(157, 87, 227, 0.25);
+    text-align: center;
+  }
+}

@@ -1,0 +1,20 @@
+.question {
+  color: #5b1cae;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+.question__specific {
+  color: #5b1cae;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  font-weight: 900;
+}
+
+.multiple-choice {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}

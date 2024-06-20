@@ -1,0 +1,163 @@
+@import url("https://fonts.googleapis.com/css2?family=Aguafina+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@mixin box-sizing($type) {
+  -webkit-box-sizing: $type;
+  -moz-box-sizing: $type;
+  box-sizing: $type;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+
+  &:hover {
+    color: #535bf2;
+  }
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  @include border-radius(8px);
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  @include transition(border-color 0.25s);
+
+  &:hover {
+    border-color: #646cff;
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+$bubbles_total: 30;
+
+@media (max-width: 1200px) {
+  $bubbles_total: 20;
+}
+
+@media (max-width: 768px) {
+  $bubbles_total: 10;
+}
+
+* {
+  @include box-sizing(border-box);
+  &:after,
+  &:before {
+    @include box-sizing(border-box);
+  }
+}
+
+.root {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #a76ae4;
+}
+
+.main {
+  overflow: hidden;
+}
+
+.bubble {
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.4);
+  display: inline-block;
+  @include border-radius(50%);
+  position: absolute;
+  @for $bubble from 1 through $bubbles_total {
+    &-#{$bubble} {
+      opacity: random(100) * 0.01;
+      width: #{random(120) + 40}px; // Sizes will vary between 10px and 40px
+      aspect-ratio: 1 / 1;
+      left: #{random(100)}vw;
+      top: #{random(100)}vh;
+    }
+  }
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+p {
+  text-align: center;
+}

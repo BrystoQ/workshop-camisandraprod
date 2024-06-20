@@ -1,0 +1,59 @@
+.progress-counter-bg1 {
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  top: 2%;
+  left: -10%;
+  width: 248px;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  background: rgba(199, 168, 252, 0.5);
+
+  .progress-counter-bg2 {
+    align-items: center;
+    text-align: center;
+
+    width: 204px;
+    aspect-ratio: 1/1;
+    background: rgba(199, 168, 252, 1);
+    border-radius: 100%;
+
+    .progress-counter {
+      width: 152px;
+      aspect-ratio: 1/1;
+      border-radius: 100%;
+      background: white;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+  }
+}
+
+@media (min-width: 425px) {
+  .progress-counter-bg1 {
+    top: 10%;
+    left: 15%;
+    width: 200px;
+    aspect-ratio: 1/1;
+  }
+  .progress-counter-bg2 {
+    width: 160px;
+    aspect-ratio: 1/1;
+  }
+  .progress-counter {
+    width: 120px;
+    aspect-ratio: 1/1;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+}
+
+.answers {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}

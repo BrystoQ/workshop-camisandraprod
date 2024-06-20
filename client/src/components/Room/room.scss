@@ -1,0 +1,25 @@
+.room {
+  h3 {
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.75rem;
+    font-family: "Poppins", sans-serif;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    color: white;
+    font-weight: bold;
+    font-size: 1.25rem;
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+  }
+  p {
+    color: white;
+    text-align: center;
+  }
+  canvas {
+    margin: 20px;
+  }
+}

@@ -1,0 +1,21 @@
+.button {
+  background: #ffffff;
+  box-shadow: 0px 2px 13px 4px rgba(157, 87, 227, 0.25);
+  color: #a76ae4;
+  border-radius: 20px;
+}
+
+.selected {
+  background: #a76ae4;
+  color: #ffffff;
+}
+
+.button__next {
+  background: #9d57e3;
+  color: #ffffff;
+  border-radius: 50px;
+  width: 128px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
