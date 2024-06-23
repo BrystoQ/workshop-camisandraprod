@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_ORIGIN,
+    origin: process.env.CLIENT_ORIGIN || "*", // Autoriser toutes les origines ou spécifier votre origine
     methods: ["GET", "POST"],
   },
 });
@@ -15,7 +15,10 @@ const io = new Server(server, {
 const rooms = {};
 
 io.on("connection", (socket) => {
+  console.log("New client connected:", socket.id);
+
   socket.on("createRoom", ({ roomId, userName, gameId }) => {
+    console.log("createRoom event received:", { roomId, userName, gameId });
     if (!rooms[roomId]) {
       rooms[roomId] = {
         users: [],
@@ -38,6 +41,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("joinRoom", ({ roomId, userName }) => {
+    console.log("joinRoom event received:", { roomId, userName });
     if (!rooms[roomId]) {
       socket.emit("roomNotFound");
       return;
@@ -54,6 +58,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("startSession", (roomId, totalQuestions) => {
+    console.log(
+      `startSession event received for room ${roomId} with ${totalQuestions} questions`
+    );
     if (rooms[roomId]) {
       rooms[roomId].totalQuestions = totalQuestions;
       rooms[roomId].answers = Array(totalQuestions)
@@ -105,6 +112,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
+    console.log("Client disconnected:", socket.id);
     if (socket.roomId) {
       rooms[socket.roomId].users = rooms[socket.roomId].users.filter(
         (user) => user !== socket.userName
@@ -119,6 +127,6 @@ io.on("connection", (socket) => {
 });
 
 const PORT = process.env.PORT || 4000;
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
   console.log(`Listening on *:${PORT}`);
 });

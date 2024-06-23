@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../Buttons/Button";
+import ButtonNext from "../Buttons/ButtonNext";
 import { compatibilityQuestions } from "../../constants/questions";
 import Card from "../Card/Card";
 import socket from "../../socket";
@@ -90,10 +91,6 @@ const Quiz2: React.FC<Quiz2Props> = ({ users }) => {
       questionIndex: currentQuestionIndex,
       answer: value,
     });
-    console.log("answer event emitted:", {
-      questionIndex: currentQuestionIndex,
-      answer: value,
-    });
   };
 
   const handleNextResult = () => {
@@ -109,40 +106,8 @@ const Quiz2: React.FC<Quiz2Props> = ({ users }) => {
   const handlePreviousResult = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
-      console.log(
-        "handlePreviousResult: currentQuestionIndex",
-        currentQuestionIndex - 1
-      );
     }
   };
-
-  useEffect(() => {
-    console.log("Quiz2 State:", {
-      questions,
-      answers,
-      currentQuestionIndex,
-      allQuestionsCompleted,
-      results,
-      isCreator,
-      userAnswered,
-      users,
-    });
-  }, [
-    questions,
-    answers,
-    currentQuestionIndex,
-    allQuestionsCompleted,
-    results,
-    isCreator,
-    userAnswered,
-    users,
-  ]);
-
-  useEffect(() => {
-    if (allQuestionsCompleted) {
-      navigate("/end");
-    }
-  }, [allQuestionsCompleted, navigate]);
 
   const calculateCompatibility = () => {
     let equalAnswers = 0;
@@ -162,11 +127,16 @@ const Quiz2: React.FC<Quiz2Props> = ({ users }) => {
     <div>
       {!allQuestionsCompleted && (
         <div key={currentQuestionIndex}>
-          <div className="progress-counter">
-            Question {currentQuestionIndex + 1} / {questions.length}
+          <div className="progress-counter-bg1">
+            <div className="progress-counter-bg2">
+              <div className="progress-counter">
+                {currentQuestionIndex + 1} / {questions.length}
+              </div>
+            </div>
           </div>
           <Card width={316} height={138}>
-            <div className="question">
+            <div className="question">Qui de nous :</div>
+            <div className="question__specific">
               {questions[currentQuestionIndex]?.question}
             </div>
           </Card>
@@ -183,64 +153,65 @@ const Quiz2: React.FC<Quiz2Props> = ({ users }) => {
         </div>
       )}
 
-      {allQuestionsCompleted && results && (
+      {allQuestionsCompleted && results && results.length > 0 && (
         <div>
-          <div className="progress-counter">
-            Résultat {currentQuestionIndex + 1} / {results.length}
+          <div className="progress-counter-bg1">
+            <div className="progress-counter-bg2">
+              <div className="progress-counter">
+                {currentQuestionIndex + 1} / {results.length}
+              </div>
+            </div>
           </div>
           <div key={`result-${currentQuestionIndex}`}>
-            <div className="question">
-              {results[currentQuestionIndex]?.question}
-            </div>
-            {results[currentQuestionIndex]?.answers &&
-              Object.entries(results[currentQuestionIndex].answers).map(
-                ([player, answer], index) => (
-                  <p key={index}>
-                    {player}: {answer}
-                  </p>
-                )
-              )}
-          </div>
-          {isCreator && (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "16px",
-              }}
+            <Card
+              width={316}
+              height={138}
+              key={`result-${currentQuestionIndex}`}
             >
-              <button
-                onClick={handlePreviousResult}
-                disabled={currentQuestionIndex === 0}
-              >
-                Précédent
-              </button>
-              <button
+              <div className="question">Qui de nous</div>
+              <div className="question__specific">
+                {results[currentQuestionIndex]?.question}
+              </div>
+            </Card>
+            <p>
+              {results[currentQuestionIndex]?.answers &&
+                Object.entries(results[currentQuestionIndex].answers).map(
+                  ([user, answer], index) => (
+                    <span
+                      key={index}
+                      style={{
+                        fontSize: "1.5rem",
+                      }}
+                    >
+                      {user}
+                      <Card width={316} height={138}>
+                        {answer}
+                      </Card>
+                    </span>
+                  )
+                )}
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center", // Center-align the next button
+              marginTop: "16px",
+            }}
+          >
+            {currentQuestionIndex < results.length - 1 && (
+              <ButtonNext
                 onClick={handleNextResult}
                 disabled={currentQuestionIndex === results.length - 1}
-              >
-                Suivant
-              </button>
-            </div>
-          )}
+              />
+            )}
+          </div>
           {currentQuestionIndex === results.length - 1 && (
             <div>
               <div>Vous êtes compatible à {calculateCompatibility()}%</div>
+              <button onClick={() => navigate("/end")}>Fin</button>
             </div>
           )}
-        </div>
-      )}
-
-      {users.length > 0 && (
-        <div>
-          <div className="users">
-            <div className="users__title">Participants</div>
-            <div className="users__list">
-              {users.map((user, index) => (
-                <div key={index}>{user}</div>
-              ))}
-            </div>
-          </div>
         </div>
       )}
     </div>

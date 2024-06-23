@@ -35,7 +35,7 @@ const Start: React.FC = () => {
             onClick={() => handleGameSelect(game.id)}
           >
             <img src={game.picture} alt={game.name} width={100} height={100} />
-            <h2>{game.name}</h2>
+            <h3 style={{ color: "#5b1cae" }}>{game.name}</h3>
           </div>
         ))}
       <div>

@@ -146,13 +146,13 @@ const Quiz1: React.FC<Quiz1Props> = ({ users }) => {
 
       {allQuestionsCompleted && results && results.length > 0 && (
         <div>
-          <div className="progress-counter-bg1">
+          {/* <div className="progress-counter-bg1">
             <div className="progress-counter-bg2">
               <div className="progress-counter">
                 {currentQuestionIndex + 1} / {results.length}
               </div>
             </div>
-          </div>
+          </div> */}
           <div key={`result-${currentQuestionIndex}`}>
             <Card
               width={316}

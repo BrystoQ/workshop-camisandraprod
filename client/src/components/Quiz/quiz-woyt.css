@@ -31,7 +31,7 @@
   }
 }
 
-@media (min-width: 425px) {
+@media (min-width: 720px) {
   .progress-counter-bg1 {
     top: 10%;
     left: 15%;

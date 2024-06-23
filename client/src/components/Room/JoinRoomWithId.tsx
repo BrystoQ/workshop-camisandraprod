@@ -16,8 +16,13 @@ const JoinRoomWithId: React.FC = () => {
       return;
     }
 
+    console.log("Emitting joinRoom event with:", { roomId, userName });
     socket.emit("joinRoom", { roomId, userName });
-    console.log("Join room emitted:", { roomId, userName });
+
+    socket.on("roomNotFound", () => {
+      alert("Room not found");
+    });
+
     navigate(`/room/${roomId}`);
   };
 
